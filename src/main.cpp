@@ -6,6 +6,7 @@
 #include "input/ButtonData.h"
 #include "session/SessionData.h"
 #include "prefs/Settings.h"
+#include "csv/CsvFormater.h"
 
 #define TASK_DEFAULT_CORE_ID 1
 #define TASK_STACK_DEPTH 4096UL
@@ -38,6 +39,8 @@ uint8_t readBuffer[session::data_length::max] = {0};
 bool gyroOffsetInstalled = true;
 imu::AverageCalcXYZ gyroAve;
 prefs::Settings settingPref;
+csv::CsvFormater csvFormater;
+char csvStr[128] = {0};
 
 void UpdateLcd() {
   M5.Lcd.setCursor(40, 0);
@@ -127,6 +130,8 @@ static void WriteSessionLoop(void* arg) {
       if (xSemaphoreTake(imuDataMutex, MUTEX_DEFAULT_WAIT) == pdTRUE) {
         imuSessionData.write((uint8_t*)&imuData, imu::ImuDataLen);
         btSpp.write((uint8_t*)&imuSessionData, imuSessionData.length());
+          csvFormater.toCsv(imuData, "tagq", csvStr);
+          Serial.printf("%s\n", csvStr);
       }
       xSemaphoreGive(imuDataMutex);
     }
