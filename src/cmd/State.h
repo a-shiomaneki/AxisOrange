@@ -1,7 +1,7 @@
-#ifndef __DEVICE_STATE_STATE_H__
-#define __DEVICE_STATE_STATE_H__
+#ifndef __CMD_STATE_H__
+#define __CMD_STATE_H__
 
-namespace device_state {
+namespace cmd {
     enum State {
         DevStateAwake = 0,
         DevStateIdle = 1,
@@ -10,4 +10,4 @@ namespace device_state {
     };
 }
 
-#endif // __DEVICE_STATE_STATE_H__
+#endif // __CMD_STATE_H__
