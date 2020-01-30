@@ -25,12 +25,12 @@ bool StateUpdate::setUpdate(const State& newState) {
 
 bool StateUpdate::setCommand(const char* command, State& newState) {
     std::string str(command);
-    if (str.size < 1) return false;
+    if (str.size() < 1) return false;
 
     std::vector<std::string> splited = split(str, " ");
     std::string type = splited[0];
 
-    if (splited.size < 2) {
+    if (splited.size() < 2) {
         if (type == CmdIdle) {
             previous = current;
             newState = current = StateIdle;

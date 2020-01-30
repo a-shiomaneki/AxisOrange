@@ -130,8 +130,6 @@ static void WriteSessionLoop(void* arg) {
       if (xSemaphoreTake(imuDataMutex, MUTEX_DEFAULT_WAIT) == pdTRUE) {
         imuSessionData.write((uint8_t*)&imuData, imu::ImuDataLen);
         btSpp.write((uint8_t*)&imuSessionData, imuSessionData.length());
-          csvFormater.toCsv(imuData, "tagq", csvStr);
-          Serial.printf("%s\n", csvStr);
       }
       xSemaphoreGive(imuDataMutex);
     }
